@@ -3,23 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monitoring Suhu</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Data DHT11</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .data {
+      font-size: 1.5em;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Monitoring Suhu dan Kelembapan</h1>
-  </header>
-  <main>
-    <div class="card">
-      <h2>Data Sensor</h2>
-      <p><strong>Suhu:</strong> <span id="temperature">--</span> °C</p>
-      <p><strong>Kelembapan:</strong> <span id="humidity">--</span> %</p>
-    </div>
-  </main>
-  <footer>
-    <p>&copy; DHT 11 Monitoring System</p>
-  </footer>
-  <script src="script.js"></script>
+  <h1>Data DHT11</h1>
+  <p class="data" id="temperature">Suhu: -</p>
+  <p class="data" id="humidity">Kelembapan: -</p>
+
+  <script>
+    // Fungsi untuk mendapatkan parameter query string dari URL
+    function getQueryParams() {
+      const params = {};
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      // Loop semua parameter dan simpan ke objek params
+      for (const [key, value] of urlParams.entries()) {
+        params[key] = value;
+      }
+      return params;
+    }
+
+    // Ambil data dari query string
+    const queryParams = getQueryParams();
+    const suhu = queryParams.suhu || "Tidak tersedia";
+    const kelembapan = queryParams.kelembapan || "Tidak tersedia";
+
+    // Tampilkan data di halaman
+    document.getElementById('temperature').textContent = `Suhu: ${suhu} °C`;
+    document.getElementById('humidity').textContent = `Kelembapan: ${kelembapan} %`;
+  </script>
 </body>
 </html>
